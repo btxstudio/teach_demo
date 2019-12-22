@@ -1,0 +1,27 @@
+.slider{
+    position: relative;
+
+    .s-w-container{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .s-w-title{
+            max-width: 50rem;
+        }
+
+        .s-w-btn{
+            border: 2px solid #fff;
+            color: rgba(255,255,255,.9);
+            border-radius: 0;
+            background-color: transparent;
+            padding: 10px 36px;
+            text-decoration: none;
+        }
+    }
+}

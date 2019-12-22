@@ -1,0 +1,23 @@
+
+@import "./initor.scss"; 
+
+//扩展公共样式库
+   
+//内边距设置
+@include auto_gen_padding_class();    
+
+
+//字号倍数设置
+@include auto_gen_font_size_class(); 
+
+[class^="fsize-"], [class*=" fsize-"]{
+    vertical-align: middle;
+}
+
+
+//生成各尺寸方块
+@include auto_gen_rect_class();
+
+[class^="rect-"], [class*=" rect-"]{
+    display: inline-block;
+} 

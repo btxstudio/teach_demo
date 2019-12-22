@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>产品列表页</title>
+    
+    <%- include("common/header_js") %>
+</head>
+
+<body>
+    <!-- 导航 -->
+    <%- include("common/header") %>
+
+    <!-- header 背景图 -->
+    <section class="sub-banner"></section>
+
+    <!-- 产品展示 -->
+    <section class="text-center pad-v-5">
+        <div class="container">
+            <h2 class="pad-b-1"><span class="fsize-1d2">我们的旅游套餐</span></h2>
+            <p class="pad-b-4 text-secondary">Discover Our Tour Packages.</p>
+            <div class="row pad-b-1">
+
+                <% for(let i=0; i<pros.length; i++){ %>
+                    <div class="col-3">
+
+                        <!-- 卡片列表项组件 -->
+                        <a class="card-item" href="/booking?pro_id=<%= pros[i]._id %>">
+                            <div class="ci-w-cover">
+                                <img src="res/img/<%= pros[i]._id %>.jpg" onerror="this.src = '/img/default.jpg'" />
+                                <span class="ci-w-mark text-light bg-primary"><i class="icon-mark"></i><%= pros[i].price %> ￥</span>
+                            </div>
+                            <div class="text-left pad-1">
+                                <div class="text-secondary"><i class="text-primary icon-pos"></i>
+                                    <%= pros[i].addr %>
+                                </div>
+                                <div class="font-weight-bold pad-v-1">
+                                    <%= pros[i].title %>
+                                </div>
+                                <div class="text-secondary pad-b-1">
+                                    <%= pros[i].description %>.</div>
+                                <div class="text-secondary"><i class="text-primary icon-time"></i> 持续时间 : <span class="font-weight-bold"><%= pros[i].duration %></span></div>
+                            </div>
+                        </a>
+
+                    </div>
+                    <% } %>
+
+            </div>
+
+            <!-- 分页 -->
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="####" id="prev">前一页</a></li>
+
+                <% for(let i=0; i<pages; i++){ %>
+                    <li class="page-item">
+                        <a class="page-link" href="/pro_list?page=<%- i %>">
+                            <%= i+1 %>
+                        </a>
+                    </li>
+                    <% } %>
+
+                        <li class="page-item"><a class="page-link" href="####" id="next">后一页</a></li>
+            </ul>
+
+        </div>
+
+    </section>
+
+    <!-- 底部版权信息 -->
+    <%- include("common/footer") %>
+
+    <script>
+        {
+            //前后分页
+            const get_cur_page = () => {
+                if (location.search) {
+                    let queries = location.search.split("?")[1].split("&");
+                    return queries.find((query) => {
+                        if (query.search("page=") === 0) return true
+                    }).split("=")[1] * 1;
+                }else{
+                    return 0;
+                }
+            }
+
+            $("#prev").on("click", () => { //前一页
+                let cur_page = get_cur_page() - 1;
+                if (cur_page >= 0) location = `/pro_list?page=${cur_page}`;
+            })
+            $("#next").on("click", () => { //后一页
+                let cur_page = get_cur_page() + 1,
+                    pages = `<%= pages %>`;
+                if (cur_page < pages) location = `/pro_list?page=${cur_page}`;
+            })
+        }
+    </script>
+</body>
+
+</html>

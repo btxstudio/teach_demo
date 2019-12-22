@@ -1,0 +1,85 @@
+//混合宏工具----------------------------------------------
+
+//设置内边距
+@mixin set_padding($val:0, $dir:all){
+    @if $dir == all{
+        padding: $val;
+    }@else if $dir == v{ //vertical
+        padding: {
+            top: $val;
+            bottom: $val;
+        }
+    }@else if $dir == h{ //horizontal
+        padding: {
+            left: $val;
+            right: $val;
+        }
+    }@else{
+        padding-#{$dir}: $val;
+    }
+} 
+
+//自动化生成全局样式类----------------------------------------------
+
+//生成内边距
+@mixin auto_gen_padding_class(){ 
+    $dirs: (-t top), (-r right), (-l left), (-b bottom), (-v v), (-h h), ("" all); 
+    $vals: (1 1), (1d5 1.5), (2 2), (2d5 2.5), (3 3), (3d5 3.5), (4 4), (5 5), (6 6), (7 7), (8 8), (9 9), (10 10);
+
+    @for $i from 1 to length($dirs) + 1{
+        $dir: nth($dirs, $i);
+        @each $val in $vals{
+            .pad#{nth($dir, 1)}-#{nth($val, 1)} {
+                @include set_padding(#{nth($val, 2)}rem, nth($dir, 2));
+            }
+        }
+    }
+} 
+
+//生成倍数字号
+@mixin auto_gen_font_size_class(){ 
+    @for $i from 0 to 11{
+        
+        //处理缩小字号
+        @if $i == 0 {
+            @for $i from 1 to 10{
+                .fsize-d#{$i} {
+                    font-size: #{$i / 10}em;   
+                }        
+            }
+        } @else if $i == 1 {
+            @for $i from 1 to 10{ 
+                .fsize-1d#{$i} {
+                    font-size: #{1 + $i / 10}em;
+                }        
+            }
+        } @else if $i > 1 {
+            .fsize-#{$i} {
+                font-size: #{$i}em;
+            }
+            .fsize-#{$i}d5 {
+                font-size: #{$i + 0.5}em;
+            }
+        }
+    }
+} 
+
+//生成各尺寸方块 
+@mixin auto_gen_rect_class(){ 
+    @for $i from 1 to 11{
+        .rect-#{$i} {
+            width: #{$i}rem;
+            height: #{$i}rem;
+            line-height: #{$i}rem;
+        }
+    }
+}
+
+//设置字体图标
+@mixin set_icons($icons){
+    @each $icon in $icons {
+        .icon-#{nth($icon, 1)}::before {
+            content: nth($icon, 2);
+        }
+    }
+}

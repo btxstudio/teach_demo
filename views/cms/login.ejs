@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>旅游预订平台CMS-登录页</title>
+
+    <%- include("common/header_js") %>
+</head>
+
+<body>
+    <div class="login-page">
+        <div class="container d-flex align-items-center">
+            <div class="form-holder has-shadow">
+                <div class="row">
+                    
+                    <!-- 左侧封面 -->
+                    <%- include("common/cms_cover") %>
+                    
+                    <!-- 右侧表单 -->
+                    <div class="col-lg-6">
+                        <div class="form d-flex align-items-center">
+                            <div class="content">
+                                <form method="post" action="/travel/user/api/login" class="form-validate mb-4">
+                                    <div class="form-group">
+                                        <input id="login-username" type="text" name="uname" required data-msg="Please enter your username" class="input-material">
+                                        <label for="login-username" class="label-material">账号</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="login-password" type="password" name="pwd" required data-msg="Please enter your password" class="input-material">
+                                        <label for="login-password" class="label-material">密码</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">登录</button>
+                                </form>
+                                <a href="#" class="forgot-pass">忘记密码?</a><br><small>是否还没有账号? </small><a href="/s/regist" class="signup">注册账号</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="copyrights text-center">
+            <p>Design by <a href="https://bootstrapious.com/p/bootstrap-4-dark-admin" class="external">Bootstrapious</a></p>
+            <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+        </div>
+    </div>
+
+    <%- include("common/footer_js") %>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>旅游预订平台CMS-文章页</title>
+
+    <%- include("common/header_js") %>
+</head>
+
+<body>
+
+    <!-- 顶部工具栏 -->
+    <%- include("common/header") %>
+
+    <div class="d-flex align-items-stretch">
+        
+        <!-- 左侧边栏导航 -->
+        <%- include("common/nav_aside") %>
+
+        <!-- 右侧文章详情编辑 -->
+        <div class="page-content">
+            <div class="page-header">
+                <div class="container-fluid">
+                    <h2 class="h5 no-margin-bottom">文章编辑界面</h2>
+                </div>
+            </div>
+            <section class="no-padding-top">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="block">
+                                <div class="title"><strong>平台介绍</strong></div>
+                                <div id="editeArea" class="block-body">
+                                    <form class="form-horizontal">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">文章标题</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="title" class="form-control" value="<%= title %>">
+                                            </div>
+                                        </div>
+                                        <div class="line"></div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">文章内容</label>
+                                            <div class="col-sm-9">
+                                                <textarea class="form-control" name="content" rows=10><%= content %></textarea>
+                                                <input type="hidden" name="id" value="<%= id %>" />
+                                                <small class="help-block-none">文章内容请勿超过 200 字符.</small>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="form-group row">
+                                        <div class="col-sm-9 ml-auto">
+                                            <button type="submit" class="btn btn-primary" data-mod-btn>保存修改</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+    </div>
+
+    <%- include("common/footer_js") %>
+
+    <script src="/js/editPannel.js"></script>
+    <script>
+        new window.external.editePannel("#editeArea", {
+            mod_api: "/travel/article/api/mod"
+        });
+    </script>
+</body>
+
+</html>

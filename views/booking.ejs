@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>预定页</title>
+    
+    <%- include("common/header_js") %>
+</head>
+
+<body>
+    <!-- 导航 -->
+    <%- include("common/header") %>
+
+    <!-- header 背景图 -->
+    <section class="sub-banner"></section>
+
+    <!-- 产品预定 -->
+    <section class="pad-v-5">
+        <div class="container">
+            <h2 class="text-center pad-b-4"><span class="fsize-1d2">预订行程</span></h2>
+            <div class="row">
+                <div class="col-5">
+                    <form class="row">
+                        <div class="col-6 form-group">
+                            <input type="text" class="form-control" placeholder="姓名" name="uname">
+                        </div>
+                        <div class="col-6 form-group">
+                            <input type="email" class="form-control" placeholder="Email" name="email">
+                        </div>
+                        <div class="col-6 form-group">
+                            <input type="number" class="form-control" placeholder="电话" name="tel">
+                        </div>
+                        <div class="col-6 form-group">
+                            <input type="date" class="form-control" placeholder="日期" name="date">
+                        </div>
+                        <div class="col-6 form-group">
+                            <select class="form-control" name="adults">
+                                <option>成人</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5 或 更多</option>
+                            </select>
+                        </div>
+                        <div class="col-6 form-group">
+                            <select class="form-control" name="kids">
+                                <option>儿童</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5 或 更多</option>
+                            </select>
+                        </div>
+                        <div class="col-12 form-group">
+                            <textarea class="form-control" rows="5" placeholder="信息" name="message"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary w-100">立即预定</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-7 pad-l-7">
+                    <div class="pad-b-2">
+                        <img src="res/img/<%= pro_info._id %>.jpg" onerror="this.src = '/img/default.jpg'" />
+                    </div>
+                    <h4 class="pad-b-2">行程说明</h4>
+                    <p class="text-secondary">【<%= pro_info.addr %>】 <%= pro_info.title %>.</p>
+                    <p class="text-secondary"><%= pro_info.description %>.</p>
+                    <p class="text-secondary">该品牌在法瑞意目的地满意度 <span class="text-info font-weight-bold">97%</span> | 高于法瑞意平均满意度 <span class="text-primary font-weight-bold">1.5%</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部版权信息 -->
+    <%- include("common/footer") %>
+    
+    <script>
+
+        //通过预定接口发送预定信息
+        $("form").on("submit", function(){
+            let send_data = {};
+            $(this).find("[name]").each((i, inp)=>{
+                send_data[$(inp).attr("name")] = $(inp).val();
+                send_data.pro_id = `<%= pro_info._id %>`
+            })
+            $.post("/booking", send_data, (res)=>{
+                
+                //提交反馈业务逻辑                
+                if(res.code == 200){
+                    alert("预定成功!");
+                }
+
+            })
+            return false; //禁止同步请求
+        })
+
+    </script>
+</body>
+
+</html>

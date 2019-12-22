@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>旅游预订平台CMS-首页</title>
+
+    <%- include("common/header_js") %>
+</head>
+
+<body>
+
+    <!-- 顶部工具栏 -->
+    <%- include("common/header") %>
+
+    <div class="d-flex align-items-stretch">
+
+        <!-- 左侧边栏导航 -->
+        <%- include("common/nav_aside") %>
+
+        <!-- 管理员账号 -->
+        <div class="page-content">
+            <div class="page-header">
+                <div class="container-fluid">
+                    <h2 class="h5 no-margin-bottom">用户管理界面</h2>
+                </div>
+            </div>
+
+            <%- include("common/user_count") %>
+
+            <section class="no-padding-top">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="block margin-bottom-sm" id="editeArea">
+                                <div class="title"><strong>用户信息列表</strong></div>
+
+                                <!-- 编辑弹窗 -->
+                                <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                                    <div role="document" class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header"><strong id="exampleModalLabel" class="modal-title">用户信息编辑面板</strong>
+                                                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label>用户账号</label>
+                                                        <input type="text" name="uname" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>用户邮箱</label>
+                                                        <input type="email" name="email" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>用户密码</label>
+                                                        <input type="text" name="pwd" class="form-control">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button data-del-btn type="button" data-dismiss="modal" class="btn btn-secondary">删除用户</button>
+                                                <button data-mod-btn type="button" class="btn btn-primary">保存修改</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>用户 id</th>
+                                                <th>用户账号</th>
+                                                <th>用户邮箱</th>
+                                                <th>用户密码</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <% for(let i=0; i<data.length; i++){ %>
+                                            <tr data-toggle="modal" data-target="#myModal" data-id="<%= data[i]._id %>" data-uname="<%= data[i].uname %>" data-email="<%= data[i].email %>">
+                                                <th scope="row">
+                                                    <%= i+1 %>
+                                                </th>
+                                                <td>
+                                                    <%= data[i].user_id %>
+                                                </td>
+                                                <td>
+                                                    <%= data[i].uname %>
+                                                </td>
+                                                <td>
+                                                    <%= data[i].email %>
+                                                </td>
+                                                <td>
+                                                    <%= data[i].pwd %>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <%- include("common/footer_js") %>
+
+    <script src="/js/editPannel.js"></script>
+    <script>
+        new window.external.editePannel("#editeArea", {
+            del_api: "/travel/users/api/del",
+            mod_api: "/travel/users/api/mod"
+        });
+    </script>
+</body>
+
+</html>
